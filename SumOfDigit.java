@@ -1,7 +1,16 @@
 public class SumOfDigit {
 
     static int sod(int num){
-        return 0;
+        // Termination Case
+        if(num ==0){
+            return 0; // It is a sum initial value
+        }
+        int singleDigit = num % 10;
+        int sum =sod(num/10); // Make a Number Small (Small Problem)
+        // Stack Fall
+       
+        sum = sum + singleDigit;
+        return sum;
     }
    
     static void sod(int num, int sum ){
@@ -23,7 +32,8 @@ public class SumOfDigit {
     }
     public static void main(String[] args) {
         int num = 123;
-        sod(num, 0);
+        //sod(num, 0);
+        System.out.println(sod(123));
 
     }
 }
