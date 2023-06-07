@@ -20,7 +20,9 @@ public class ReverseAnString {
         
     }
     public static void main(String[] args) {
-        System.out.println(reverse("amit"));
+        String org = "Amit";
+        String result = reverse(org);
+        //System.out.println(reverse(org));
         
     }
 }
