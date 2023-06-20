@@ -1,0 +1,31 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        generateBrackets(result, n, 0, 0, sb);
+        return result;
+    }
+
+    private void generateBrackets(List<String> result, int n , int opening, int closing, StringBuilder output){
+        // Termination Case
+        if(output.length() == n*2){
+            result.add(output.toString());
+            return ;
+        }
+        // Can i Place Opening
+        if(opening<n){
+            output.append("("); // Place Opening
+            generateBrackets(result, n, opening+1, closing, output);
+             // Stack Fall
+            output.deleteCharAt(output.length()-1); // Undo
+        }
+        // Can i Place Closing
+        if(closing<opening){
+            output.append(")"); // Place Closing
+            generateBrackets(result, n, opening, closing+1, output);
+            // Stack Fall
+            output.deleteCharAt(output.length()-1);
+
+        }
+    }
+}
