@@ -1,0 +1,21 @@
+class Solution {
+    int count = 0;
+    public int findTargetSumWays(int[] nums, int target) {
+        compute(nums, 0,0, target);
+        return count;
+    }
+    private void compute(int[] nums , int sum , int index, int target ){
+        // Termination Case
+        if(index == nums.length){
+            if(sum == target){
+                count++;
+            }
+        }
+        else{
+            // Include 
+            compute(nums, sum + nums[index], index + 1, target); 
+            // Not Include
+             compute(nums, sum - nums[index], index + 1, target);
+        }
+    }
+}
