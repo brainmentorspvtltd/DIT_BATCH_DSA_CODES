@@ -1,0 +1,24 @@
+class Solution{
+
+
+    static Boolean isSubsetSum(int N, int arr[], int sum){
+        // Termination Case
+        if(sum ==0){
+            return true;
+        }
+        if(N==0){
+            return false;
+        }
+        // Array Element it must be less than equal to sum
+        if(arr[N-1]<=sum){
+        // Include the Sum
+        return isSubsetSum(N-1, arr, sum - arr[N-1]) || isSubsetSum(N-1, arr, sum);
+        
+        // Not Include the Sum
+        
+        }
+        else{
+            return isSubsetSum(N-1, arr, sum);
+        }
+    }
+}
