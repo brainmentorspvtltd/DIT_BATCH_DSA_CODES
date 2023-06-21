@@ -1,36 +1,35 @@
 class First{
-
-    static void print(int n){
-        for(int i =1 ; i<=n; i=i*2){
-            System.out.println(i);
-        }
-    }
-
-    static void disp(int n){
-        for(int i = 1; i<=n; i++){
-            for(int j = 1; j<=n ; j++){
-                System.out.println(Math.pow(i,j));
-            }
-        }
-    }
-    static void show(int n){
-        for(int i = 1; i<=n; i++){
-            if(n%2==0){
-                System.out.println("Exit...");
-                return ;
-            }
-            System.out.println(Math.pow(i,2));
-        }
-    }
     public static void main(String[] args) {
-        show(Integer.parseInt(args[0]));
-        // int x= 100;
-        // int y = 200;
-        // int sum = x + y;
-        // int prod = x * y;
-        // int div = x /y;
-        // System.out.println(sum + " "+prod + " "+div);
-
-       
+        int mul[][] = {{10,20},{30,40,50}, {60,70,80,90}};
+        // Traditional Loop
+        // for(int i = 0; i<mul.length; i++){
+        //     for(int j = 0; j<mul[i].length; j++){
+        //         System.out.print(mul[i][j] + " ");
+        //     }
+        //     System.out.println();
+        // }
+        // Enhance for Loop
+        for(int e[] : mul){
+            for(int element : e){
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
+        double a [] = new double[10];
+       // System.out.println(a); // a.toString()
+        int arr[] = {10,20,30,40,50};
+        // for(int i = 0; i<arr.length; i++){
+        //     System.out.println(arr[i]);
+        // }
+        // Enhance for Loop (Java 1.5 onwards)
+        // for(int element : arr){
+        //     System.out.println(element);
+        // }
+        // for(double ele : a ){
+        //     System.out.println(ele);
+        // }
+        //System.out.println(arr.length);
+        //System.out.println(arr); // arr.toString() (Object class)
+        // toString - className@HashCode
     }
 }
