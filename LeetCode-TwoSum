@@ -1,0 +1,26 @@
+class Solution {
+    public int[] twoSum(int[] arr, int target) {
+        int max = 0;
+        int indexes []= new int[2];
+        HashMap<Integer, Integer> hash = new HashMap<>();
+       
+               
+                for(int i = 0; i<arr.length; i++){
+                    if(hash.get(arr[i])==null){
+                        int index = target - arr[i];
+                        hash.put(index, i); // put (key, value)
+                        
+                    }
+                    else{
+                        
+                        indexes[0] = hash.get(arr[i]);
+                        indexes[1] = i;
+                        //System.out.println("Two Sum "+firstPair + " "+secondPair);
+                        //return;
+                    }
+                }
+                return indexes;
+        
+        
+    }
+}
