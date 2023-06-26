@@ -1,0 +1,47 @@
+class Solution {
+    char[][] board;
+    public boolean exist(char[][] board, String word){
+        this.board = board;
+        //exist(0,0, word);
+        for(int i = 0; i<board.length; i++){
+            for(int j = 0; j<board[i].length; j++){
+                if(exist(i, j, word)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    boolean isValidPath = false;
+    public boolean exist(int row, int col, String word) {
+        // word found
+        if(word.length() ==0){
+            return true;
+        }
+        // if word not found and goes out of range
+        if(row<0 || col<0 || row == board.length || col==board[row].length || board[row][col]!=word.charAt(0)){
+            return false;
+        }
+        // Mark as Visited
+        board[row][col] = '#'; // Mark as visited.
+        // Lookup in all 4 Directions
+        int directions [][] = {
+            {0,1},// right
+            {1,0},// down
+            {-1,0},// up
+            {0,-1} // left
+        };
+        for(int direction =0; direction<directions.length; direction++){
+            int rowDirection = directions[direction][0]; // get row
+            int colDirection = directions[direction][1]; // get col
+            isValidPath = exist(row + rowDirection, col + colDirection, word.substring(1));
+            if(isValidPath){
+                break;
+            }
+        }
+        // BackTracking (Undo)
+        board[row][col] = word.charAt(0);
+        return isValidPath;
+        
+    }
+}
