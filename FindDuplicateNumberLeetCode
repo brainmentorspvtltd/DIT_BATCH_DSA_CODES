@@ -1,0 +1,64 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        // Approach - 5
+         // Traverse the Element and Mark Negative , if Negative so it already visited. so duplicate  
+         int duplicateElement = -1;
+         for(int i = 0; i<nums.length; i++){
+            int index = Math.abs(nums[i]); // getting the element and treat this as index
+            if(nums[index]<0){
+                duplicateElement = index;
+                break; 
+                //return index;
+            }
+            nums[index] = nums[index] * -1; // Marking elements negative 
+         } 
+         // Get back to Org Array
+         for(int i = 0; i<nums.length; i++){
+             nums[i] = Math.abs(nums[i]);
+         }
+         return duplicateElement;
+        // Approach - 4
+        // HashMap<Integer, Integer> map = new HashMap<>();
+        // for(int element : nums){
+        //     if(map.get(element)==null){
+        //         map.put(element , 1);
+        //     }
+        //     else{
+        //         return element;
+        //     }
+        // }
+       // return -1;
+
+        // Approach -3
+        // int n = 0;
+        // int total = 0;
+        // for(int element : nums){
+        //     total  = total + element;
+        //     if(element>n){
+        //         n = element;
+        //     }
+        // }
+        // int sum = n * (n+1)/2;
+        // return total - sum;
+
+
+        // Approach - 2
+        // Arrays.sort(nums);
+        // for(int i= 0; i<nums.length-1; i++){
+        //     if(nums[i]==nums[i+1]){
+        //         return nums[i];
+        //     }
+        // }
+        // return -1;
+
+        // Brute Force
+        // for(int i = 0 ; i<nums.length-1; i++){
+        //     for(int j = i+1; j<nums.length; j++){
+        //         if(nums[i]==nums[j]){
+        //             return nums[i];
+        //         }
+        //     }
+        // }
+        // return -1;
+    }
+}
