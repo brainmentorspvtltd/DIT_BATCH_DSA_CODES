@@ -1,0 +1,47 @@
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        // Approach-2
+        /*int org[] = nums.clone();
+        Arrays.sort(nums);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i<nums.length; i++){
+            if(map.get(nums[i])==null){
+                map.put(nums[i], i);
+            }
+        }
+        int output [] = new int[nums.length];
+        for(int i = 0; i<org.length; i++){
+            output[i] = map.get(org[i]);
+        }
+        return output;
+        */
+        // Approach -3 
+        int output [] = new int[nums.length];
+        int hash[] = new int[101];
+        // Maintain a Hash (Element Count)
+        for(int i = 0 ; i<nums.length; i++){
+            if(hash[nums[i]]==0){
+                hash[nums[i]] = 1;
+            }
+            else{
+                 hash[nums[i]] = hash[nums[i]]+1;
+            }
+        }
+        // Prefix Sum
+        for(int i =1; i<hash.length; i++){
+            int prev = hash[i-1];
+            int current = hash[i];
+            hash[i] = prev + current;
+        }
+        for(int i = 0; i<nums.length; i++){
+            if(nums[i]==0){
+                output[i] = 0;
+                continue;
+            }
+            output[i] = hash[nums[i]-1];
+        }
+        return output;
+
+
+    }
+}
