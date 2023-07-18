@@ -1,6 +1,10 @@
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Queue;
+import java.util.TreeMap;
+import java.util.ArrayList;
 
 class BinaryTreeNode<T>{
     T data;
@@ -180,6 +184,113 @@ class BinaryTreeOperations{
         int value = Math.max(leftHeight, rightHeight);
         return value + 1;
     }
+    int maxLevel = 0;
+    void printLeftView(BinaryTreeNode<Integer> root, int currentLevel){
+        // Termination Case
+        if(root == null){
+            return ;
+        }
+        if(maxLevel<currentLevel){
+            System.out.println(root.data);
+            maxLevel = currentLevel;
+        }
+        printLeftView(root.left, currentLevel+1);
+        printLeftView(root.right, currentLevel+1);
+    }
+
+    int maxLevelR = 0;
+    void printRightView(BinaryTreeNode<Integer> root, int currentLevel){
+        // Termination Case
+        if(root == null){
+            return ;
+        }
+        if(maxLevel<currentLevel){
+            System.out.println(root.data);
+            maxLevel = currentLevel;
+        }
+        printRightView(root.right, currentLevel+1);
+        printRightView(root.left, currentLevel+1);
+       
+    }
+
+    void printLeftViewIterative(BinaryTreeNode<Integer> root){
+        if(root == null){
+            return ;
+        }
+        Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            int queueSize = queue.size();
+            for(int i = 0; i<queueSize; i++){
+                BinaryTreeNode<Integer> currentNode = queue.poll();
+                if(i==0){
+                    System.out.println(currentNode.data);
+                }
+                if(currentNode.left!=null){
+                    queue.add(currentNode.left);
+                }
+                if(currentNode.right!=null){
+                    queue.add(currentNode.right);
+                }
+            }
+
+        }
+    }
+
+    public void printVerticalOrder(BinaryTreeNode<Integer> root){
+        TreeMap<Integer, ArrayList<Integer>> map  = new TreeMap<>();
+        verticalOrder(root, 0, map);
+        for(Map.Entry<Integer, ArrayList<Integer>> m: map.entrySet()){
+            System.out.println(m.getKey()+" "+m.getValue());
+        }
+    }
+
+    public void verticalOrder(BinaryTreeNode<Integer> root, int distance, TreeMap<Integer,ArrayList<Integer>> map ){
+        // Termination Case
+        if(root == null){
+            return ;
+        }
+        if(map.get(distance)==null){ // No Distance Exist
+            // Create Fresh ArrayList
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(root.data);
+            map.put(distance,list);
+        }
+        else { // Distance Exist
+            // get the old list
+            // and add new element
+            ArrayList<Integer> l = map.get(distance);
+            l.add(root.data);
+            map.put(distance, l);
+        }
+        verticalOrder(root.left, distance -1 , map);
+        verticalOrder(root.right, distance +1 , map);
+    }
+
+    void printRightViewIterative(BinaryTreeNode<Integer> root){
+        if(root == null){
+            return ;
+        }
+        Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            int queueSize = queue.size();
+            for(int i = 0; i<queueSize; i++){
+                BinaryTreeNode<Integer> currentNode = queue.poll();
+                if(i==0){
+                    System.out.println(currentNode.data);
+                }
+                if(currentNode.right!=null){
+                    queue.add(currentNode.right);
+                }
+                if(currentNode.left!=null){
+                    queue.add(currentNode.left);
+                }
+               
+            }
+
+        }
+    }
 
     int sizeOfBinaryTree(BinaryTreeNode<Integer> root){
         if(root == null){
@@ -237,7 +348,11 @@ class BinaryTreeExample{
         case 2: 
         //opr.iterativeWayOfPreOrder(root);
        // opr.iterativeInorder(root);
-       opr.levelOrder2(root);
+       //opr.levelOrder2(root);
+      // opr.printLeftView(root, 1);
+      //opr.printLeftViewIterative(root);
+      //opr.printRightView(root, 1);
+      opr.printVerticalOrder(root);
         //opr.print(root);
         break;  
         case 3:
