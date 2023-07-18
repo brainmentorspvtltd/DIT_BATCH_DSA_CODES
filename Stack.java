@@ -1,46 +1,50 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Stack {
-    private ArrayList<Integer> stack;
+    Queue<Integer> queue1;
+    Queue<Integer> queue2;
 
     public Stack(){
-        stack = new ArrayList<>();
+        queue1 = new LinkedList<>();
+        queue2 = new LinkedList<>();
     }
 
     public void push(int x){
-        stack.add(x);
+        queue2.add(x);
+        while(!queue1.isEmpty()){
+            queue2.add(queue1.remove());
+        }
+        Queue<Integer> temp = queue1;
+        queue1 = queue2;
+        queue2 = temp;
     }
 
     public int pop(){
         if(isEmpty()){
-            throw new IllegalStateException("Stack is Empty");
+            throw new RuntimeException("Stack is empty");
         }
-        int lastIndex = stack.size() -1;
-        return stack.remove(lastIndex);
+        return queue1.remove();
     }
 
     public boolean isEmpty(){
-        return stack.isEmpty();
-    }
-
-    public int peek(){
-        if(isEmpty()){
-            throw new IllegalStateException("Stack is Empty");
-        }
-        int lastIndex = stack.size() -1;
-        return stack.get(lastIndex);
+        return queue1.isEmpty();
     }
 
     public int size(){
-        return stack.size();
+        return queue1.size();
     }
-    
+
     public static void main(String[] args) {
         Stack stack = new Stack();
+
         stack.push(10);
         stack.push(20);
         stack.push(30);
+
+        System.out.println(stack.size());
         stack.pop();
         System.out.println(stack.size());
     }
+    
 }
