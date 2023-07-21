@@ -267,6 +267,50 @@ class BinaryTreeOperations{
         verticalOrder(root.right, distance +1 , map);
     }
 
+    public void printTopView(BinaryTreeNode<Integer> root){
+        TreeMap<Integer, ArrayList<Integer>> map  = new TreeMap<>();
+        topView(root, 0, map);
+        for(Map.Entry<Integer, ArrayList<Integer>> m: map.entrySet() ){
+            System.out.println(m.getValue());
+        }
+
+    }
+
+    public void topView(BinaryTreeNode<Integer> root, int distance, TreeMap<Integer,ArrayList<Integer>> map ){
+        // Termination Case
+        if(root == null){
+            return ;
+        }
+        if(map.get(distance)==null){ // No Distance Exist
+            // Create Fresh ArrayList
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(root.data);
+            map.put(distance,list);
+        }
+        // else { // Distance Exist
+        //     // get the old list
+        //     // and add new element
+        //     ArrayList<Integer> l = map.get(distance);
+        //     l.add(root.data);
+        //     map.put(distance, l);
+        // }
+        topView(root.left, distance -1 , map);
+        topView(root.right, distance +1 , map);
+    }
+
+    public void printBottomView(BinaryTreeNode<Integer> root){
+        TreeMap<Integer, ArrayList<Integer>> map  = new TreeMap<>();
+        verticalOrder(root, 0, map);
+        for(Map.Entry<Integer, ArrayList<Integer>> m: map.entrySet() ){
+            ArrayList<Integer> l = m.getValue();
+            System.out.println(l.get(l.size()-1));
+        }
+
+    }
+
+    
+
+
     void printRightViewIterative(BinaryTreeNode<Integer> root){
         if(root == null){
             return ;
@@ -323,7 +367,58 @@ class BinaryTreeOperations{
            System.out.println();
         }
     }
+
+    boolean isChildrenSum(BinaryTreeNode<Integer> root){
+        if(root == null){
+            return true;
+        }
+        if(root.left==null && root.right==null){
+            return true;
+        }
+        int sum = 0;
+        if(root.left!=null){
+            sum = sum + root.left.data;
+        }
+        if(root.right!=null){
+            sum = sum + root.right.data;
+        }
+        return (root.data == sum 
+        && isChildrenSum(root.left) 
+        && isChildrenSum(root.right));
+    }
+
+    boolean search(BinaryTreeNode<Integer> root, int searchElement, ArrayList<BinaryTreeNode<Integer>> path){
+        if(root == null){
+            return false;
+        }
+        path.add(root);
+        if(root.data == searchElement){
+            return true;
+        }
+        if(search(root.left, searchElement,path ) || search(root.right, searchElement,path ) ){
+            return true;
+        }
+        return false;
+    }
     
+
+BinaryTreeNode<Integer> lca(BinaryTreeNode<Integer> root, int n1 , int n2){
+    ArrayList<BinaryTreeNode<Integer>> path1 = new ArrayList<>();
+    ArrayList<BinaryTreeNode<Integer>> path2 = new ArrayList<>();
+    if(!search(root, n1, path1) || !search(root, n2, path2)){
+        return null;
+    }
+    
+
+   for(int i = path1.size()-1;i>=0; i--){
+    for(int j = path2.size()-1; j>=0; j--){
+        if(path1.get(i).data == path2.get(j).data){
+            System.out.println("LCA "+path1.get(i).data);
+            return path1.get(i);
+        }
+    }
+   }
+   return null;
 }
 
 class BinaryTreeExample{
@@ -352,7 +447,12 @@ class BinaryTreeExample{
       // opr.printLeftView(root, 1);
       //opr.printLeftViewIterative(root);
       //opr.printRightView(root, 1);
-      opr.printVerticalOrder(root);
+      //opr.printVerticalOrder(root);
+      System.out.println(opr.isChildrenSum(root)?"Yes":"No");
+      
+      //opr.printBottomView(root);
+       // opr.printTopView(root);
+      //opr.topView(root);
         //opr.print(root);
         break;  
         case 3:
