@@ -1,0 +1,22 @@
+DP - Dynamic Programming
+- DP is entirely based on Recursion
+
+Problems with Recursion
+- Sub-structure property
+- Overlapping sub-problem
+
+When do we use DP ?
+- Count something, count number of ways of doing something
+- Minimise or Maximise certain values
+
+Fibonacci Series
+
+Ways to Use DP
+- Memoization - use recursion with extra array known as cache
+ - Top Down Approach
+- Tabulation  - without using recursion, it means use loop only
+ - Bottom Up Approach
+
+
+Dice Count
+- i/p : target = 7
